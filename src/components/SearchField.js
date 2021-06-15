@@ -1,33 +1,58 @@
 import {useState} from 'react';
 import Result from './Result';
 
-
 const SearchField = () => {
 
-  const [userOutput, setOutput] = useState(null);
-  let [boolean, setBoolean] = useState(null)
+  const [meaning, setMeaning] = useState("translation will show up here..");
+  const [emoji, setEmoji] = useState("");
 
-  const dogsList = 
+
+  const flowerEmojies = 
     {
-      "🐕": "Dog",
-      "🦮": "Guide dog",
-      "🐕‍🦺": "Service dog"
-    };
+      "💐": "Bouquet",
+      "🌸": "Cherry Blossom",
+      "💮": "White Flower",
+      "🏵️": "Rosette",
+      "🌹": "Rose",
+      "🥀": "Wilted Flower",
+      "🌺": "Hibiscus",
+      "🌻": "Sunflower",
+      "🌼": "Blossom",
+      "🌷": "Tulip",
+      "🌱": "Seedling"
+      
+  };
+
+  const emojies = Object.keys(flowerEmojies);
 
   const handleChange = (e)=> {
-        var userInput = e.target.value;
-        if (dogsList[userInput]){
-          
-        }
-        var meaning = dogList[userInput];
-        setOutput(e.target.value)
-        }
-        
+    const userInput = e.target.value;
+    setEmoji(userInput);
+
+    if (userInput in flowerEmojies) {
+      setMeaning(flowerEmojies[userInput]);
+    } else {
+      setMeaning("failure to recognise this emoji");
+    }
+  }
+
+
+  function handleClick(userInput) {
+    setMeaning(flowerEmojies[userInput]);
+  }  
               
     return (
          <div>
-           <input onChange={(e)=> handleChange(e)} id="input" placeholder="copy paste a emoji here to know the meaning" />
-           <Result result={userOutput} boolean={boolean} />
+           <h1>Call of Flowers..</h1>
+            <input id="input" styles={styling} onChange={handleChange} value={emoji} placeholder={"put an emoji here to know the meaning"} />
+            
+           <Result 
+           meaning={meaning}  
+           emoji={emoji} 
+           handleChange={handleChange} 
+           handleClick = {handleClick} 
+           emojies = {emojies} 
+            />
          </div> 
         
 
@@ -35,3 +60,8 @@ const SearchField = () => {
 }
  
 export default SearchField;
+
+const styling = {
+    padding: "1em",
+    minWidth: "80%"
+}

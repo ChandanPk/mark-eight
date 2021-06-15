@@ -1,12 +1,23 @@
-const Result = (props) => {
+const Result = ({meaning, emoji, handleClick, handleChange, emojies}) => {
     return ( 
         <div className="result">
-            <h3>translation will show here..</h3>
-
-            {props.result}
-            
-        </div>
+      
+            <h2 style={{fontSize: "3rem", margin: "10px"}}> {emoji} </h2>
+            <h3> {meaning} </h3>
+            {
+        
+                emojies.map((emoji) => (
+                <span onClick={() => handleClick(emoji)} style={styles}> {" "} {emoji}{" "} </span>
+                ))
+            }
+    </div>
      );
 }
  
 export default Result;
+
+const styles = {
+    fontSize: "2rem",
+    padding: "0.5rem",
+    cursor: "pointer"
+}
